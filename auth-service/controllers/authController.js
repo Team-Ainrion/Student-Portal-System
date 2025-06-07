@@ -2,6 +2,17 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ msg: "User not found" });
+    return res.json({ msg: "Password reset link sent to your email (simulated)" });
+  } catch (err) {
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
 exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
 

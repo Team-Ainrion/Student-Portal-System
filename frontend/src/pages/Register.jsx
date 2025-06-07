@@ -61,7 +61,6 @@ const Register = () => {
             style={styles.input}
           />
 
-          {/* Role dropdown */}
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -77,6 +76,13 @@ const Register = () => {
             Register
           </button>
         </form>
+
+        <div style={styles.links}>
+          <p>
+            Already have an account?{" "}
+            <a href="/" style={styles.link}>Back to Login</a>
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -128,6 +134,15 @@ const styles = {
     borderRadius: "6px",
     border: "none",
     cursor: "pointer",
+  },
+  links: {
+    marginTop: "20px",
+    fontSize: "14px",
+    color: "#444",
+  },
+  link: {
+    color: "#667eea",
+    textDecoration: "none",
   },
 };
 
