@@ -1,57 +1,108 @@
-// Attractive Profile.jsx (Improved Layout & UX)
 import React, { useEffect, useState } from "react";
-import { getProfileById, updateProfile } from "../api/profileAPI";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
-const Profile = ({ userId }) => {
+const Profile = () => {
+  const { id } = useParams();
   const [profile, setProfile] = useState(null);
-  const [editMode, setEditMode] = useState(false);
-  const [form, setForm] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [editMode, setEditMode] = useState(false);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    getProfileById(userId).then(res => {
-      setProfile(res);
-      setForm(res);
-      setLoading(false);
-    });
-  }, [userId]);
+    axios
+      .get(`http://localhost:5001/api/profiles/${id}`)
+      .then((res) => {
+        setProfile(res.data);
+        setFormData(res.data);
+      })
+      .catch((err) => {
+        console.error("❌ Error fetching profile:", err);
+        setError("Error fetching profile");
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async () => {
-    await updateProfile(userId, form);
-    setEditMode(false);
+  const handleSave = async () => {
+    try {
+      await axios.put(`http://localhost:5001/api/profiles/${id}`, formData);
+      setProfile(formData);
+      setEditMode(false);
+    } catch (err) {
+      console.error("Error updating profile", err);
+    }
   };
 
-  if (loading) return <p style={styles.loading}>Loading profile...</p>;
+  if (loading) return <h3>🔄 Loading profile...</h3>;
+  if (error) return <h3 style={{ color: "red" }}>{error}</h3>;
+  if (!profile) return <h3>⚠️ No profile found</h3>;
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.title}>My Profile</h2>
-        <form style={styles.form}>
-          {['name', 'contact', 'address', 'department'].map(field => (
-            <input
-              key={field}
-              name={field}
-              value={form[field] || ''}
-              onChange={handleChange}
-              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-              style={styles.input}
-              disabled={!editMode}
-            />
-          ))}
-
-          <div style={styles.buttonContainer}>
-            {editMode ? (
-              <button type="button" style={styles.saveButton} onClick={handleSubmit}>Save</button>
-            ) : (
-              <button type="button" style={styles.editButton} onClick={() => setEditMode(true)}>Edit</button>
-            )}
-          </div>
-        </form>
+        <h2 style={styles.title}>👤 Profile of {profile.name}</h2>
+         <input
+          name="name"
+          value={formData.name}
+          disabled
+          style={styles.input}
+        />
+        
+        <input
+          name="email"
+          value={formData.email}
+          disabled
+          style={styles.input}
+        />
+        <input
+          name="role"
+          value={formData.role}
+          disabled
+          style={styles.input}
+        />
+         <input
+          name="RegisterNumber"
+          placeholder="Register Number"
+          value={formData.RegisterNumber}
+          onChange={handleChange}
+          disabled={!editMode}
+          style={styles.input}
+        />
+        <input
+          name="contact"
+          placeholder="Contact"
+          value={formData.contact}
+          onChange={handleChange}
+          disabled={!editMode}
+          style={styles.input}
+        />
+        <input
+          name="address"
+          placeholder="Address"
+          value={formData.address}
+          onChange={handleChange}
+          disabled={!editMode}
+          style={styles.input}
+        />
+        <input
+          name="department"
+          placeholder="Department"
+          value={formData.department}
+          onChange={handleChange}
+          disabled={!editMode}
+          style={styles.input}
+        />
+        <button
+          onClick={editMode ? handleSave : () => setEditMode(true)}
+          style={styles.button}
+        >
+          {editMode ? "Save Profile" : "Edit Profile"}
+        </button>
       </div>
     </div>
   );
@@ -59,66 +110,46 @@ const Profile = ({ userId }) => {
 
 const styles = {
   container: {
-    minHeight: "100vh",
-    background: "linear-gradient(to right, #667eea, #764ba2)",
+    minHeight:"100vh",
+    minWidth:"100vw",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    padding: "20px",
+    height: "100vh",
+    background: "linear-gradient(to right, #667eea, #764ba2)",
   },
   card: {
     backgroundColor: "#fff",
-    borderRadius: "16px",
-    padding: "40px 30px",
-    boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2)",
-    width: "100%",
-    maxWidth: "500px",
+    borderRadius: "10px",
+    padding: "40px",
+    width: "90%",
+    maxWidth: "600px",
+    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
   },
   title: {
-    marginBottom: "25px",
     textAlign: "center",
+    marginBottom: "20px",
     color: "#333",
   },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-  },
   input: {
+    display: "block",
+    width: "100%",
+    marginBottom: "15px",
     padding: "12px",
-    fontSize: "16px",
-    borderRadius: "8px",
+    borderRadius: "6px",
     border: "1px solid #ccc",
-    transition: "all 0.3s ease",
-    outline: "none",
+    fontSize: "16px",
+  
   },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  editButton: {
-    padding: "12px 24px",
+  button: {
+    width: "100%",
+    padding: "12px",
+    border: "none",
+    borderRadius: "6px",
     backgroundColor: "#667eea",
     color: "#fff",
     fontWeight: "bold",
-    borderRadius: "8px",
-    border: "none",
     cursor: "pointer",
-  },
-  saveButton: {
-    padding: "12px 24px",
-    backgroundColor: "#38a169",
-    color: "#fff",
-    fontWeight: "bold",
-    borderRadius: "8px",
-    border: "none",
-    cursor: "pointer",
-  },
-  loading: {
-    textAlign: "center",
-    marginTop: "100px",
-    fontSize: "18px",
-    color: "#555",
   },
 };
 

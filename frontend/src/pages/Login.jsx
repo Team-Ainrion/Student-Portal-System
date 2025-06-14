@@ -1,26 +1,31 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";  
-// import this
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHover, setIsHover] = useState(false);
 
-  const navigate = useNavigate(); // initialize navigate
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Here you can add your login logic, e.g., API call, validation
-    // For now, just simulate success and redirect
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password,
+      });
 
-    // For example, if login successful:
-    if (email && password) {
-      // Redirect to dashboard
-      navigate("/dashboard");
-    } else {
-      alert("Please enter email and password");
+      // ✅ Store user ID in localStorage
+      const userId = res.data.user.id;
+      localStorage.setItem("userId", userId);
+
+      // ✅ Redirect to profile page
+      navigate(`/profile/${userId}`);
+    } catch (err) {
+      alert("Login failed: " + (err.response?.data?.msg || "Server error"));
     }
   };
 
@@ -89,16 +94,16 @@ const styles = {
   card: {
     backgroundColor: "#fff",
     borderRadius: "12px",
-    padding : "50px 30px",
+    padding: "50px 30px",
     boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
     width: "clamp(350px,80%,600px)",
-    maxWidth : "600px",
-    minHeight : "450px",
+    maxWidth: "600px",
+    minHeight: "450px",
     textAlign: "center",
-    display:"flex",
-    flexDirection:"column",
-    justifyContent:"space-between",
-  } ,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
   title: {
     marginBottom: "20px",
     color: "#333",
@@ -107,8 +112,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-    flexGrow:1,
-    justifyContent:"center",
+    flexGrow: 1,
+    justifyContent: "center",
   },
   input: {
     padding: "12px 15px",
@@ -116,8 +121,9 @@ const styles = {
     borderRadius: "6px",
     border: "1px solid #ccc",
     outline: "none",
-    width:"100%",
-    boxSizing:"border-box",
+    width: "100%",
+    boxSizing: "border-box",
+    
   },
   button: {
     padding: "12px",
@@ -126,8 +132,8 @@ const styles = {
     borderRadius: "6px",
     border: "none",
     cursor: "pointer",
-    backgroundColor: "#667eea", 
-    width: "100%", 
+    backgroundColor: "#667eea",
+    width: "100%",
     boxSizing: "border-box",
   },
   links: {

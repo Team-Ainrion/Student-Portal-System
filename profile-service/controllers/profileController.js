@@ -8,8 +8,22 @@ exports.getAllProfiles = async (req, res) => {
 
 // GET by ID
 exports.getProfileById = async (req, res) => {
-  const user = await UserProfile.findById(req.params.id);
-  res.json(user);
+  try {
+    console.log(" ID requested:", req.params.id);
+
+    const user = await UserProfile.findById(req.params.id);
+
+    if (!user) {
+      console.log(" Not found in DB");
+      return res.status(404).json({ msg: "Profile not found" });
+    }
+
+    console.log("✅ Profile found:", user);
+    res.json(user);
+  } catch (err) {
+    console.error(" Server error:", err.message);
+    res.status(500).json({ msg: "Server Error" });
+  }
 };
 
 // POST create

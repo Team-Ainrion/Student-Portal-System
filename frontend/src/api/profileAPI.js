@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create Axios instance
 const API = axios.create({
-  baseURL: "http://localhost:5000/api/profiles", // change port if your profile service uses another
+  baseURL: "http://localhost:5001/api/profiles", // change port if your profile service uses another
   headers: {
     "Content-Type": "application/json",
   },

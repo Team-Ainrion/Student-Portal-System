@@ -14,5 +14,5 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use("/api/profiles", require("./routes/profileRoutes"));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Profile service running on port ${PORT}`));
