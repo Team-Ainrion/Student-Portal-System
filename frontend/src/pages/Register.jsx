@@ -125,6 +125,8 @@ const styles = {
     borderRadius: "6px",
     border: "1px solid #ccc",
     outline: "none",
+    background:"#fff",
+    color:"#000",
   },
   button: {
     padding: "12px",

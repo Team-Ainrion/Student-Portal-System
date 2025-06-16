@@ -1,4 +1,4 @@
-// src/api/profileAPI.js
+
 import axios from "axios";
 
 // Create Axios instance

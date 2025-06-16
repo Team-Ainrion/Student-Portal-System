@@ -123,6 +123,8 @@ const styles = {
     outline: "none",
     width: "100%",
     boxSizing: "border-box",
+    backgroundColor:"#fff",
+    color:"#000",
     
   },
   button: {

@@ -18,7 +18,7 @@ const Profile = () => {
         setFormData(res.data);
       })
       .catch((err) => {
-        console.error("❌ Error fetching profile:", err);
+        console.error(" Error fetching profile:", err);
         setError("Error fetching profile");
       })
       .finally(() => setLoading(false));
@@ -139,6 +139,8 @@ const styles = {
     borderRadius: "6px",
     border: "1px solid #ccc",
     fontSize: "16px",
+    backgroundColor:"#fff",
+    color:"#000",
   
   },
   button: {
