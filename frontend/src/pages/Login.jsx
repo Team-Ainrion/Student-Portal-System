@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-=======
-import { useNavigate } from "react-router-dom";  
-// import this
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isHover, setIsHover] = useState(false);
 
-<<<<<<< HEAD
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -24,30 +18,15 @@ const Login = () => {
         password,
       });
 
-      // ✅ Store user ID in localStorage
+      // ✅ Store user ID
       const userId = res.data.user.id;
       localStorage.setItem("userId", userId);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      // ✅ Redirect to profile page
+      // ✅ Navigate to profile page
       navigate(`/profile/${userId}`);
     } catch (err) {
       alert("Login failed: " + (err.response?.data?.msg || "Server error"));
-=======
-  const navigate = useNavigate(); // initialize navigate
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Here you can add your login logic, e.g., API call, validation
-    // For now, just simulate success and redirect
-
-    // For example, if login successful:
-    if (email && password) {
-      // Redirect to dashboard
-      navigate("/dashboard");
-    } else {
-      alert("Please enter email and password");
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
     }
   };
 
@@ -116,7 +95,6 @@ const styles = {
   card: {
     backgroundColor: "#fff",
     borderRadius: "12px",
-<<<<<<< HEAD
     padding: "50px 30px",
     boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
     width: "clamp(350px,80%,600px)",
@@ -127,18 +105,6 @@ const styles = {
     flexDirection: "column",
     justifyContent: "space-between",
   },
-=======
-    padding : "50px 30px",
-    boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
-    width: "clamp(350px,80%,600px)",
-    maxWidth : "600px",
-    minHeight : "450px",
-    textAlign: "center",
-    display:"flex",
-    flexDirection:"column",
-    justifyContent:"space-between",
-  } ,
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
   title: {
     marginBottom: "20px",
     color: "#333",
@@ -147,13 +113,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-<<<<<<< HEAD
     flexGrow: 1,
     justifyContent: "center",
-=======
-    flexGrow:1,
-    justifyContent:"center",
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
   },
   input: {
     padding: "12px 15px",
@@ -161,16 +122,10 @@ const styles = {
     borderRadius: "6px",
     border: "1px solid #ccc",
     outline: "none",
-<<<<<<< HEAD
     width: "100%",
     boxSizing: "border-box",
-    backgroundColor:"#fff",
-    color:"#000",
-    
-=======
-    width:"100%",
-    boxSizing:"border-box",
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+    backgroundColor: "#fff",
+    color: "#000",
   },
   button: {
     padding: "12px",
@@ -179,13 +134,7 @@ const styles = {
     borderRadius: "6px",
     border: "none",
     cursor: "pointer",
-<<<<<<< HEAD
-    backgroundColor: "#667eea",
     width: "100%",
-=======
-    backgroundColor: "#667eea", 
-    width: "100%", 
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
     boxSizing: "border-box",
   },
   links: {

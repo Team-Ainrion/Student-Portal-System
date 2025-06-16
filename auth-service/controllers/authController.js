@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-<<<<<<< HEAD
+
 const axios = require("axios"); // ✅ Make sure axios is installed
 
 // Forgot Password (simulated)
@@ -18,9 +18,9 @@ exports.forgotPassword = async (req, res) => {
 };
 
 // Register
-=======
 
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
+
 exports.register = async (req, res) => {
   const { name, email, password, role } = req.body;
 
@@ -42,7 +42,7 @@ exports.register = async (req, res) => {
 
     await user.save();
 
-<<<<<<< HEAD
+
     // ✅ Create profile in profile-service
     try {
       await axios.post("http://localhost:5001/api/profiles", {
@@ -62,8 +62,7 @@ exports.register = async (req, res) => {
       console.error(" Failed to create profile:", profileErr.message);
     }
 
-=======
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
     res.status(201).json({ msg: "User registered successfully" });
   } catch (err) {
     console.error("Register error:", err);
@@ -71,10 +70,10 @@ exports.register = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
+ 
 // Login
-=======
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
+
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 

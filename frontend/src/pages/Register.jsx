@@ -61,10 +61,8 @@ const Register = () => {
             style={styles.input}
           />
 
-<<<<<<< HEAD
-=======
           {/* Role dropdown */}
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
           <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
@@ -80,7 +78,7 @@ const Register = () => {
             Register
           </button>
         </form>
-<<<<<<< HEAD
+
 
         <div style={styles.links}>
           <p>
@@ -88,8 +86,7 @@ const Register = () => {
             <a href="/" style={styles.link}>Back to Login</a>
           </p>
         </div>
-=======
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
       </div>
     </div>
   );
@@ -132,11 +129,10 @@ const styles = {
     borderRadius: "6px",
     border: "1px solid #ccc",
     outline: "none",
-<<<<<<< HEAD
+
     background:"#fff",
     color:"#000",
-=======
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
   },
   button: {
     padding: "12px",
@@ -147,7 +143,7 @@ const styles = {
     border: "none",
     cursor: "pointer",
   },
-<<<<<<< HEAD
+
   links: {
     marginTop: "20px",
     fontSize: "14px",
@@ -157,8 +153,7 @@ const styles = {
     color: "#667eea",
     textDecoration: "none",
   },
-=======
->>>>>>> 0edb1068920e4ef15c215b42cc9fe27d34ba8116
+
 };
 
 export default Register;
