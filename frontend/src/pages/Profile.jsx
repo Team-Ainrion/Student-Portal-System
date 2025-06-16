@@ -139,8 +139,6 @@ const styles = {
     borderRadius: "6px",
     border: "1px solid #ccc",
     fontSize: "16px",
-    backgroundColor:"#fff",
-    color:"#000",
   
   },
   button: {
