@@ -1,10 +1,8 @@
-// 📂 controllers/gdprController.js
-// ✅ GDPR Compliance Controller for export and delete requests
 
 const User = require("../models/User");
 const { logEvent } = require("../utils/logger");
 
-// ✅ Export personal data
+
 exports.exportData = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
@@ -18,7 +16,7 @@ exports.exportData = async (req, res) => {
   }
 };
 
-// ✅ Delete personal data (Right to be Forgotten)
+
 exports.deleteAccount = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.user.id);
@@ -33,5 +31,5 @@ exports.deleteAccount = async (req, res) => {
 };
 
 
-// 📂 routes/gdprRoutes.js
+
 

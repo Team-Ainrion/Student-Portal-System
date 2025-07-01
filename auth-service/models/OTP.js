@@ -1,5 +1,4 @@
-// 📂 models/OTP.js
-// ✅ OTP schema for temporary 2FA verification
+
 
 const mongoose = require("mongoose");
 

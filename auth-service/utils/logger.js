@@ -1,5 +1,4 @@
-// 📂 utils/logger.js
-// ✅ Simple logging utility for GDPR traceability and debugging
+
 
 exports.logEvent = (eventType, userId, details = {}) => {
   const log = {
@@ -9,5 +8,5 @@ exports.logEvent = (eventType, userId, details = {}) => {
     details
   };
 
-  console.log(JSON.stringify(log)); // Log to console; extend to file/db if needed
+  console.log(JSON.stringify(log));   
 };
