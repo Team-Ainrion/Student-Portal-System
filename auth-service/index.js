@@ -16,6 +16,10 @@ mongoose.connect(process.env.MONGO_URI)
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
 
+const gdprRoutes = require("./routes/gdprRoutes");
+app.use("/api/gdpr", gdprRoutes);
+
+
 // Sample route
 app.get("/", (req, res) => {
   res.send("Auth service is running");
