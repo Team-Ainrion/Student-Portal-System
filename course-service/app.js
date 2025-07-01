@@ -6,8 +6,7 @@ const courseRoutes = require("./routes/courseRoutes");
 // ✅ Load environment variables from .env
 dotenv.config();
 
-// ✅ Connect to MongoDB
-connectDB();
+
 
 // ✅ Initialize Express app
 const app = express();
