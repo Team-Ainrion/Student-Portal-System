@@ -1,31 +1,23 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
 const dotenv = require("dotenv");
+const connectDB = require("./config/db");
 const scheduleRoutes = require("./routes/scheduleRoutes");
 
-dotenv.config(); // Load .env file
+// ✅ Load environment variables from .env
+dotenv.config();
 
+
+
+// ✅ Initialize Express app
 const app = express();
 
-// Middleware
-app.use(cors());
+// ✅ Middleware to parse JSON requests
 app.use(express.json());
 
-// Routes
-app.use("/schedule", scheduleRoutes);
+// ✅ Mount course routes
+app.use("/api/schedules",scheduleRoutes );
 
-// MongoDB connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.error(" MongoDB Connection Error:", err));
+// ✅ Export app to use in server.js
+module.exports = app;
 
-// Start server
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(` Server is running on port ${PORT}`);
-});
 
