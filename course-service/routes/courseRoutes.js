@@ -1,15 +1,25 @@
 const express = require("express");
 const router = express.Router();
+
 const {
   createCourse,
   getAvailableCourses,
   registerForCourse,
-  dropCourse
+  dropCourse,
+  getStudentCourses,
+  getStudentWaitlist
 } = require("../controllers/courseController");
 
-router.post("/create", createCourse);
-router.get("/available", getAvailableCourses);
-router.post("/register", registerForCourse);
-router.post("/drop", dropCourse);
+const auth = require("../middleware/authMiddleware");
+
+//  Auth-protected routes
+router.post("/create", auth, createCourse);
+router.get("/available", auth, getAvailableCourses);
+router.post("/register", auth, registerForCourse);
+router.post("/drop", auth, dropCourse);
+
+// Student dashboard routes
+router.get("/my-courses", auth, getStudentCourses);
+router.get("/my-waitlist", auth, getStudentWaitlist);
 
 module.exports = router;
