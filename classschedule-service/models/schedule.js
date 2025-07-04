@@ -1,16 +1,40 @@
+
+
 const mongoose = require("mongoose");
 
-// This defines the structure for storing schedules
 const ScheduleSchema = new mongoose.Schema({
-  studentId: String,
-  day: String,
-  periods: [
-    {
-      time: String,     // e.g., "9:00 AM - 10:00 AM"
-      subject: String,  // e.g., "Math"
-      faculty: String   // e.g., "Dr. Sharma"
-    }
-  ]
-});
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+    index: true 
+  },
+  courseCode: {
+    type: String,
+    required: true
+  },
+  subject: {
+    type: String,
+    required: true
+  },
+  faculty: {
+    type: String,
+    required: true,
+    index: true
+  },
+  day: {
+    type: String,
+    enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    required: true
+  },
+  timeSlot: {
+    type: String,
+    required: true 
+  },
+  room: {
+    type: String,
+    required: true
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model("Schedule", ScheduleSchema);

@@ -1,23 +1,20 @@
+
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const scheduleRoutes = require("./routes/scheduleRoutes");
 
-// ✅ Load environment variables from .env
-dotenv.config();
-
-
-
-// ✅ Initialize Express app
 const app = express();
+dotenv.config();
+connectDB();
 
-// ✅ Middleware to parse JSON requests
 app.use(express.json());
 
-// ✅ Mount course routes
-app.use("/api/schedules",scheduleRoutes );
+// Routes
+app.use("/api/schedule", scheduleRoutes);
 
-// ✅ Export app to use in server.js
+app.get("/", (req, res) => {
+  res.send("Class Schedule Service is running");
+});
+
 module.exports = app;
-
-
