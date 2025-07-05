@@ -1,22 +1,63 @@
+
+
 const Schedule = require("../models/Schedule");
 
-// GET schedule by studentId
-exports.getSchedule = async (req, res) => {
+
+exports.createSchedule = async (req, res) => {
   try {
-    const schedule = await Schedule.find({ studentId: req.params.studentId });
-    res.json(schedule);
+    const schedule = new Schedule(req.body);
+    await schedule.save();
+    res.status(201).json({ msg: "Schedule created successfully", schedule });
   } catch (err) {
-    res.status(500).send("Server Error");
+    console.error("Create Schedule Error:", err);
+    res.status(500).json({ msg: "Server error" });
   }
 };
 
-// POST to create new schedule
-exports.createSchedule = async (req, res) => {
+
+exports.getStudentSchedule = async (req, res) => {
   try {
-    const newSchedule = new Schedule(req.body);
-    const saved = await newSchedule.save();
-    res.status(201).json(saved);
+    const { studentId } = req.params;
+    const schedule = await Schedule.find({ studentId }).lean();
+    res.json(schedule);
   } catch (err) {
-    res.status(400).send("Error creating schedule");
+    console.error("Get Student Schedule Error:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+
+exports.getFacultySchedule = async (req, res) => {
+  try {
+    const { faculty } = req.params;
+    const schedule = await Schedule.find({ faculty }).lean();
+    res.json(schedule);
+  } catch (err) {
+    console.error("Get Faculty Schedule Error:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+
+exports.updateSchedule = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updated = await Schedule.findByIdAndUpdate(id, req.body, { new: true });
+    res.json({ msg: "Schedule updated", updated });
+  } catch (err) {
+    console.error("Update Schedule Error:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+
+exports.deleteSchedule = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Schedule.findByIdAndDelete(id);
+    res.json({ msg: "Schedule deleted" });
+  } catch (err) {
+    console.error("Delete Schedule Error:", err);
+    res.status(500).json({ msg: "Server error" });
   }
 };

@@ -1,14 +1,30 @@
+
+
 const express = require("express");
 const router = express.Router();
+
 const {
-  getSchedule,
-  createSchedule
+  createSchedule,
+  getStudentSchedule,
+  getFacultySchedule,
+  updateSchedule,
+  deleteSchedule
 } = require("../controllers/scheduleController");
 
-// API: GET /schedule/:studentId
-router.get("/:studentId", getSchedule);
+const auth = require("../middlewares/authMiddleware");
+const role = require("../middlewares/roleMiddleware");
 
-// API: POST /schedule
-router.post("/", createSchedule);
+router.post("/", auth, role("admin", "faculty"), createSchedule);
+
+
+router.get("/student/:studentId", auth, role("student", "admin"), getStudentSchedule);
+
+
+router.get("/faculty/:faculty", auth, role("faculty", "admin"), getFacultySchedule);
+
+router.put("/:id", auth, role("admin"), updateSchedule);
+
+
+router.delete("/:id", auth, role("admin"), deleteSchedule);
 
 module.exports = router;
