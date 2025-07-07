@@ -3,15 +3,12 @@
 const express = require("express");
 const router = express.Router();
 
-
-
 const {
   createSchedule,
   getStudentSchedule,
   getFacultySchedule,
   updateSchedule,
-  deleteSchedule,
-  calendarView
+  deleteSchedule
 } = require("../controllers/scheduleController");
 
 const auth = require("../middlewares/authMiddleware");
@@ -29,8 +26,5 @@ router.put("/:id", auth, role("admin"), updateSchedule);
 
 
 router.delete("/:id", auth, role("admin"), deleteSchedule);
-
-
-router.get("/view", auth, calendarView);
 
 module.exports = router;
