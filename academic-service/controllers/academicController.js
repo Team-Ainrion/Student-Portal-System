@@ -31,7 +31,7 @@ exports.getTranscript = async (req, res) => {
 
 exports.getGPA = async (req, res) => {
   try {
-    console.log("🧾 Student ID from token:", req.user.id); // ✅ Add this line
+    console.log("🧾 Student ID from token:", req.user.id); 
 
     const records = await AcademicRecord.find({ studentId: req.user.id });
     let allCourses = records.flatMap(r => r.courses);
