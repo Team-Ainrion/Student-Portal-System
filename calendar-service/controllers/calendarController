@@ -1,0 +1,41 @@
+const Event = require("../models/Event");
+
+exports.createEvent = async (req, res) => {
+  try {
+    const { title, description, date, courseId } = req.body;
+    const createdBy = req.user.id;
+
+    const event = new Event({ title, description, date, courseId, createdBy });
+    await event.save();
+    res.status(201).json({ message: "Event created", event });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getAllEvents = async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getEventsByCourse = async (req, res) => {
+  try {
+    const events = await Event.find({ courseId: req.params.courseId });
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.deleteEvent = async (req, res) => {
+  try {
+    await Event.findByIdAndDelete(req.params.id);
+    res.json({ message: "Event deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
