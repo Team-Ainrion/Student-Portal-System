@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
+=======
+  "start": "node server.js",
+  "dev": "nodemon server.js"
+},
+>>>>>>> 44b78a3b0c5191458a605dc3d786734611ff4c51
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,9 +20,14 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
+<<<<<<< HEAD
     "mongoose": "^8.16.3",
     "multer": "^2.0.1",
     "socket.io": "^4.8.1"
+=======
+    "mongoose": "^8.16.2",
+    "multer": "^2.0.1"
+>>>>>>> 44b78a3b0c5191458a605dc3d786734611ff4c51
   },
   "devDependencies": {
     "nodemon": "^3.1.10"

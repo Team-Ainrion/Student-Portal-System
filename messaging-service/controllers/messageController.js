@@ -1,5 +1,6 @@
 const Message = require("../models/message");
 
+<<<<<<< HEAD
 // Send message & notify receiver
 exports.sendMessage = async (req, res) => {
   try {
@@ -31,3 +32,23 @@ exports.getMessages = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch messages" });
   }
 };
+=======
+exports.sendMessage = async (req, res) => {
+  try {
+    const filePaths = req.files ? req.files.map(file => file.path) : [];
+
+    const newMessage = new Message({
+      senderId: req.body.senderId,
+      receiverId: req.body.receiverId,
+      content: req.body.content,
+      attachments: filePaths
+    });
+
+    const saved = await newMessage.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to send message with attachment." });
+  }
+};
+
+>>>>>>> 44b78a3b0c5191458a605dc3d786734611ff4c51

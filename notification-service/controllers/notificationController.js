@@ -1,4 +1,5 @@
 const Notification = require("../models/notification");
+<<<<<<< HEAD
 const sendNotification = require("../utils/sendNotification");
 
 exports.createNotification = async (req, res) => {
@@ -24,10 +25,32 @@ exports.getUserNotifications = async (req, res) => {
     const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
     res.json(notifications);
   } catch (err) {
+=======
+
+// Create a new notification
+exports.createNotification = async (req, res) => {
+  try {
+    const newNotification = new Notification(req.body);
+    const saved = await newNotification.save();
+    res.status(201).json(saved);
+  } catch (error) {
+    res.status(400).json({ error: "Failed to create notification." });
+  }
+};
+
+// Get all notifications (or by user)
+exports.getNotifications = async (req, res) => {
+  try {
+    const filter = req.params.userId ? { userId: req.params.userId } : {};
+    const notifications = await Notification.find(filter).sort({ timestamp: -1 });
+    res.json(notifications);
+  } catch (error) {
+>>>>>>> 44b78a3b0c5191458a605dc3d786734611ff4c51
     res.status(500).json({ error: "Failed to fetch notifications." });
   }
 };
 
+<<<<<<< HEAD
 exports.markNotificationAsRead = async (req, res) => {
   try {
     const notificationId = req.params.id;
@@ -75,5 +98,19 @@ exports.deleteNotification = async (req, res) => {
     res.json({ message: "Notification deleted successfully." });
   } catch (err) {
     res.status(500).json({ error: "Failed to delete notification." });
+=======
+// Mark as read
+exports.markAsRead = async (req, res) => {
+  try {
+    const updated = await Notification.findByIdAndUpdate(
+      req.params.id,
+      { isRead: true },
+      { new: true }
+    );
+    if (!updated) return res.status(404).json({ error: "Notification not found" });
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update notification." });
+>>>>>>> 44b78a3b0c5191458a605dc3d786734611ff4c51
   }
 };
