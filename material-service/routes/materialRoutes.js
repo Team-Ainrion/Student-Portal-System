@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const materialController = require("../controllers/materialController");
 const upload = require("../middleware/fileUpload");
-const auth = require("../middleware/authMiddleware"); // ✅ Import auth middleware
+const auth = require("../middleware/authMiddleware");
 
 // Upload a material (protected route)
 router.post("/upload", auth, upload.single("file"), materialController.uploadMaterial);

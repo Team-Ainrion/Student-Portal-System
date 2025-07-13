@@ -7,4 +7,4 @@ const courseSchema = new mongoose.Schema({
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
 }, { timestamps: true });
 
-module.exports = mongoose.model("Course", courseSchema);
+module.exports = mongoose.model("Course",courseSchema);
